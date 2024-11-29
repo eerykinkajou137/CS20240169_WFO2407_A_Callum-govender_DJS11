@@ -30,4 +30,4 @@ const GetPodCasts = () => {
   return { podcasts, error };
 };
 
-export default GetPodCasts;
+export default GetPodCasts; //Returns the array
