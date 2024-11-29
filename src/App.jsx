@@ -1,7 +1,12 @@
 import "./App.css";
+import LoadCasts from "./components/loadPod";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <LoadCasts />
+    </>
+  );
 }
 
 export default App;
