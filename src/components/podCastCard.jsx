@@ -12,17 +12,17 @@ export default function RenderCards() {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+    <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-6 p-4">
       {podcasts.map((podcast) => (
         <div
           key={podcast.id}
-          className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
+          className="bg-white w-[80%] mx-auto py-2 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
         >
           {/* Podcast Image */}
           <img
             src={podcast.image}
             alt={podcast.title}
-            className="w-full h-32 object-cover" // Smaller square image (half the size of typical cards)
+            className="w-[60%] h-32 object-cover mx-auto rounded-xl" // Smaller square image (half the size of typical cards)
           />
 
           {/* Podcast Title */}
@@ -32,12 +32,12 @@ export default function RenderCards() {
 
           {/* Genres */}
           <div className="mt-2 flex flex-wrap gap-2 px-2">
-            {podcast.genres?.map((genreId) => (
+            {GetGenre(podcast.genres).map((genreTitle, index) => (
               <span
-                key={genreId}
+                key={index} // Use index as key if genres may repeat
                 className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full"
               >
-                {GetGenre([genreId])[0]} {/* Get the genre title */}
+                {genreTitle} {/* Get the genre title */}
               </span>
             ))}
           </div>
