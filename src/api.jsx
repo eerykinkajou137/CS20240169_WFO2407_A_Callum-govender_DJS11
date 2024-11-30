@@ -38,9 +38,9 @@ export const GetPodCasts = () => {
   }, []); // Empty dependency array ensures this effect only runs once when the component mounts
 
   // Function to get genre titles by excluding specific IDs
-  const GetGenre = (excludedIds) => {
+  const GetGenre = (includedId) => {
     const genreArray = podcasts
-      .filter((podcast) => !excludedIds.includes(podcast.id)) // Exclude podcasts with specific IDs
+      .filter((podcast) => includedId.includes(podcast.id)) // Exclude podcasts with specific IDs
       .flatMap((podcast) => podcast.genres || []) // Flatten genres into a single array
       .map((genreId) => genreMapping[genreId]) // Map genre IDs to titles
       .filter(Boolean); // Remove undefined titles (if any)
