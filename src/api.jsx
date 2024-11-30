@@ -1,15 +1,28 @@
 import { useState, useEffect } from "react";
 
-const GetPodCasts = () => {
+export const GetPodCasts = () => {
   const [podcasts, setPodcasts] = useState([]); // State for the fetched podcasts
   const [error, setError] = useState(""); // State for error handling
+
+  // Genre ID to Title mapping
+  const genreMapping = {
+    1: "Personal Growth",
+    2: "Investigative Journalism",
+    3: "History",
+    4: "Comedy",
+    5: "Entertainment",
+    6: "Business",
+    7: "Fiction",
+    8: "News",
+    9: "Kids and Family",
+  };
 
   useEffect(() => {
     const fetchPodcasts = async () => {
       try {
         const response = await fetch("https://podcast-api.netlify.app");
         if (!response.ok) {
-          throw new Error("Failed to fetch posts. Please try again later.");
+          throw new Error("Failed to fetch podcasts. Please try again later.");
         }
 
         const data = await response.json();
@@ -17,17 +30,23 @@ const GetPodCasts = () => {
         setPodcasts(data); // Store the data in the state
       } catch (err) {
         setError(err.message); // Set the error if something goes wrong
-        console.log(err); // Log the error for debugging
+        console.error(err); // Log the error for debugging
       }
     };
 
     fetchPodcasts();
-
-    // Optionally, you could add a cleanup function here to cancel fetch requests on unmount
   }, []); // Empty dependency array ensures this effect only runs once when the component mounts
 
-  // Return the podcasts and any errors
-  return { podcasts, error };
-};
+  // Function to get genre titles by excluding specific IDs
+  const GetGenre = (excludedIds) => {
+    const genreArray = podcasts
+      .filter((podcast) => !excludedIds.includes(podcast.id)) // Exclude podcasts with specific IDs
+      .flatMap((podcast) => podcast.genres || []) // Flatten genres into a single array
+      .map((genreId) => genreMapping[genreId]) // Map genre IDs to titles
+      .filter(Boolean); // Remove undefined titles (if any)
 
-export default GetPodCasts; //Returns the array
+    return genreArray;
+  };
+
+  return { podcasts, error, GetGenre };
+};
