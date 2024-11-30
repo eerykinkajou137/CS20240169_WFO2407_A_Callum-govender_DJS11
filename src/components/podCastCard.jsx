@@ -16,7 +16,7 @@ export default function RenderCards() {
       {podcasts.map((podcast) => (
         <div
           key={podcast.id}
-          className="bg-white w-[80%] mx-auto py-2 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
+          className="hover:bg-[#606060] w-[80%] mx-auto py-2 rounded-lg overflow-hidden hover:shadow-lg transition-color duration-300 flex flex-col items-center"
         >
           {/* Podcast Image */}
           <img
@@ -26,7 +26,7 @@ export default function RenderCards() {
           />
 
           {/* Podcast Title */}
-          <h2 className="mt-2 text-sm font-semibold text-gray-800 truncate px-2">
+          <h2 className="mt-2 text-sm font-semibold text-white truncate px-2">
             {podcast.title}
           </h2>
 
@@ -35,7 +35,7 @@ export default function RenderCards() {
             {GetGenre(podcast.genres).map((genreTitle, index) => (
               <span
                 key={index} // Use index as key if genres may repeat
-                className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full"
+                className="text-[0.5rem] bg-[#202020]  text-white px-3 py-2 rounded-full"
               >
                 {genreTitle} {/* Get the genre title */}
               </span>
